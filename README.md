@@ -1,7 +1,7 @@
 ## Project 3 Proposal
 
-My design for project 3 is to try and classify whether someone is active enough to qualify for health insurance discounts based on accelerometer data.
+Losing employees is a very expensive cost for any employer. This project will attempt to classify employess who will leave based on survey data including satisfaction level, last evaluation, number of projects they have, average monthly hours they're working, time they spend at the company, if they got promoted in the last 5 years and a few other data points. The dataset has 15k rows and 10 features.  Thus hopefully employers can work to try and reduce losing employees they don't want to lose.
 
-My data for the project is 30 people between the ages of 19-48 who have recorded and labeled accelerometer data. The goal is to classify which type of activity they're doing including Walking, Sitting, etc. The data contains ~10k rows and 563 features. The data is labeled with 6 activities that each person is performing at different times. They are: standing, walking, sitting, laying, walking downstairs, walking upstairs. Each subject has about 300-400 entries we can try and classify.  
+After building a classifier, I'll store the data in SQL and then visualize the relationships between how they work and why they leave. This should give people some interesting insights into their own roles as well as help any employers predict churn at their company.
 
-The first goal will be to predict their activity after training a model. Then, if there's time, I will attempt to say how much each exercise should be worth given the age range and costs of associated health care plans.
+
