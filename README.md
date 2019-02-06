@@ -5,3 +5,4 @@ Losing employees is a very expensive cost for any employer. This project will at
 After building a classifier, I'll store the data in SQL and then visualize the relationships between how they work and why they leave. This should give people some interesting insights into their own roles as well as help any employers predict churn at their company.
 
 
+

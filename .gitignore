@@ -1,1 +1,7 @@
-*.ipynb
+.DS_Store
+notes
+
+.ipynb_checkpoints/
+
+EEG datasets.ipynb
+taxicab info.ipynb
