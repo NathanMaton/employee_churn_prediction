@@ -106,6 +106,13 @@ def split_with_dupe_rows_in_train(churn_df):
 
     return X_train, X_val, X_holdout, y_train, y_val, y_holdout
 
+def rf_no_cv_iterx(X_train, y_train, X_val, y_val, iters):
+    scores = []
+    for i in range(iters):
+        rf = RandomForestClassifier()
+        rf_score = score_model_no_cv(rf, X_train, y_train, X_val, y_val)
+        scores.append(rf_score)
+    return np.array(scores).mean()
 
 def RMSE(validation_points, prediction_points):
    """
