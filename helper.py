@@ -14,7 +14,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.model_selection import train_test_split, cross_validate
 from sklearn.metrics import accuracy_score, precision_score, recall_score, precision_recall_curve,f1_score, fbeta_score
-from imblearn.over_sampling import RandomOverSampler
+#from imblearn.over_sampling import RandomOverSampler
 
 def clean_churn_df(df):
     df.columns = df.columns.str.strip()
