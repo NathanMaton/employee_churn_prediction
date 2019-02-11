@@ -48,7 +48,7 @@ def model_baseline_no_cv(X_train, y_train, X_val, y_val):
     svm_model = svm.SVC()
     svm_score = score_model_no_cv(svm_model, X_train, y_train, X_val, y_val)
 
-    rf = RandomForestClassifier()
+    rf = RandomForestClassifier(random_state=41)
     rf_score = score_model_no_cv(rf, X_train, y_train, X_val, y_val)
 
     #maybe try XGB for fun?
@@ -72,7 +72,7 @@ def model_baseline(X_train, y_train):
     svm_model = svm.SVC()
     svm_score = score_model(svm_model, X_train, y_train)
 
-    rf = RandomForestClassifier()
+    rf = RandomForestClassifier(random_state=41)
     rf_score = score_model(rf, X_train, y_train)
 
     #maybe try XGB for fun?
@@ -109,7 +109,7 @@ def split_with_dupe_rows_in_train(churn_df):
 def rf_no_cv_iterx(X_train, y_train, X_val, y_val, iters):
     scores = []
     for i in range(iters):
-        rf = RandomForestClassifier()
+        rf = RandomForestClassifier(random_state=41)
         rf_score = score_model_no_cv(rf, X_train, y_train, X_val, y_val)
         scores.append(rf_score)
     return np.array(scores).mean()
