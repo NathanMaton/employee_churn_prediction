@@ -43,7 +43,7 @@ def make_prediction(feature_dict):
     #print('python debug says')
     #print(x_input)
 
-    prob = str(list(rf_model.predict_proba(np.array(x_input).reshape(1, -1)).flat)[1])
+    prob = str(list(rf_model.predict_proba(np.array(x_input).reshape(1, -1)).flat)[0])
 
     outcome = str(rf_model.predict([x_input])[0])
 

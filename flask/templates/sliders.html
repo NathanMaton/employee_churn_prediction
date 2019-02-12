@@ -1,8 +1,8 @@
 {% include 'base.html' %}
     <div class="jumbotron">
       <h1 class="display-3">Explore our model</h1>
-      <p class="lead">Move the dials below to represent how you feel at work or an employee you care about.</p>
-      <p class="lead">We'll tell you the likelyhood they'll leave.</p>
+      <!--<p class="lead">Move the dials below to represent how you feel at work or an employee you care about.</p>
+      <p class="lead">We'll tell you the likelyhood they'll stay.</p>-->
 
     </div>
     <br>
@@ -13,7 +13,7 @@
     <br>
     Average hours worked per month = <span id='average_montly_hours_value'>0</span> hours
     <br>
-    <input type="range" min="0" max="500" step="5" value="160" id='average_montly_hours' onchange="moveSlider()">
+    <input type="range" min="0" max="400" step="5" value="160" id='average_montly_hours' onchange="moveSlider()">
 
     <br>
     Last performance evaluation = <span id='last_evaluation_value'>0</span>
@@ -28,25 +28,34 @@
     <br>
     Years worked at company = <span id='time_spend_company_value'>0</span> years
     <br>
-    <input type="range" min="0" max="40" step=".5" value="0" id='time_spend_company' onchange="moveSlider()">
+    <input type="range" min="0" max="15" step=".5" value="0" id='time_spend_company' onchange="moveSlider()">
 
     <br>
     Salary = <span id='salary_value'>0</span>
     <br>
-    <input type="range" min="0" max="500000" step="1000" value="0" id='salary' onchange="moveSlider()">
+    <input type="range" min="0" max="250000" step="1000" value="0" id='salary' onchange="moveSlider()">
 
 
-  <!-- stores the most likely result -->
-  <div class='jumbotron' id='results'>
-  </div>
+  <!-- stores the most likely result
+  <div class='jumbotron'>
+  </div> -->
 
-  <!-- shows the list of all results -->
+  <!-- shows the list of all results
   <div id='list_results'>
+  </div> -->
+  <div id="fuelGaugeContainer">
+    <span id='results'></span>
   </div>
+
 
 </body>
   <!-- include jQuery, so we have access to the $.post function -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <!-- <script src="static/js/gauge.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+  <script src="static/js/my_d3.js"></script>
+
+
   <!-- include our own functions -->
 
 
@@ -108,8 +117,8 @@
       url: '/predict_api',
       contentType: 'application/json',
       data: JSON.stringify(feature),
-      success: result => metis_success(result),
-      error: result => metis_error(result)
+      success: result => my_success(result),
+      error: result => my_error(result)
     })
   }
 
@@ -120,9 +129,9 @@
     return Math.round(factor*val)/factor
   }
 
-  function metis_success(result){
+  function my_success(result){
     //alert("inside success");
-    $('#results').html(`<p class='lead'>You are ${result*100}% likely to leave</p>`);
+    $('#results').html(`<p class='lead'>You are ${result*100}% likely to stay.</p>`);
 
     //const all_results = result.all_probs.map( (data) => `${data.name}: ${ourRound(100*data.prob)}`)
     //$('#list_results').html(all_results.join('%<br>') + '%');
@@ -132,7 +141,7 @@
     //modifyDivs(result.all_probs);
   }
 
-  function metis_error(result){
+  function my_error(result){
     //console.log(result);
     alert("Something's wrong.");
   }
@@ -151,6 +160,7 @@
 
     // Finally, process the model
     process();
+    getResult();
   };
   // function testfunc(){
   //   console.log('inside testfunc');
