@@ -1,5 +1,5 @@
 import flask
-from flask import request
+from flask import request, jsonify
 from predictor_api import make_prediction, feature_names
 
 # Initialize the app
@@ -13,7 +13,12 @@ app = flask.Flask(__name__)
 # page that says the site is up!
 @app.route("/")
 def hello():
-    return "It's alive!!!"
+    return flask.render_template('home.html')
+
+@app.route("/contact")
+def contact():
+    return flask.render_template('contact.html')
+
 
 
 feature_names2 = ['satisfaction_level', 'last_evaluation', 'number_project',
@@ -30,10 +35,32 @@ def predict():
 
 @app.route("/results", methods=["POST", "GET"])
 def cv_results():
-    x_input, predictions = make_prediction(request.args)
+
+    #pippo =  request.form.getlist('name[]')
+    x_input, predictions = make_prediction(request.form.getlist())
     return flask.render_template('results.html',x_input=x_input,
                                  feature_names=feature_names,
                                  prediction=predictions)
+
+@app.route("/predict_api", methods=["POST"])
+def get_api_response():
+    # This function will throw an error if we are missing one of
+    # the features it expects. Any status code that is not 200 - 299
+    # is flagged as an error
+    try:
+        response = make_prediction(request.json)
+        #print ('inside route endpoint')
+        #print (response)
+        status = 200
+    except KeyError:
+        missing = [f for f in feature_names if f not in request.json]
+        response = {
+            'status': 'error',
+            'msg': f'not all required feature names ({feature_names}) present. Missing {missing}'
+        }
+        status = 300
+    return response, status
+
 
 
 @app.route("/slider", methods=["POST", "GET"])

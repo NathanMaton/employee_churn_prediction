@@ -2,29 +2,46 @@
  *
  * See the "on" attribute of the submit button */
 function process(){
-  console.log('two');
+  console.log('process func called');
 
   // we have really long feature names =(
   feature = {
-    'petal length (cm)': $('#petal_length').val(),
-    'petal width (cm)':  $('#petal_width').val(),
-    'sepal length (cm)': $('#sepal_length').val(),
-    'sepal width (cm)':  $('#sepal_width').val()
-  }
+    'satisfaction_level': $('#satisfaction_level').val(),
+    'last_evaluation': $('#last_evaluation').val(),
+    'number_project':  $('#number_project').val(),
+    'average_montly_hours': $('#average_montly_hours').val(),
+    'time_spend_company': $('#time_spend_company').val()
+     'Work_accident': 1,
+     'promotion_last_5years': 0,
+     'IT': 0,
+     'RandD': 0,
+     'accounting':0,
+     'hr':0,
+     'management':0,
+     'marketing':0,
+     'product_mng':0,
+     'sales':0,
+     'support':0,
+     'technical':1,
+     'high':0,
+     'low':0,
+     'medium':1
+      }
 
   // Call our API route /predict_api via the post method
   // Our method returns a dictionary.
   // If successful, pass the dictionary to the function "metis_success"
-  // If there is an error, pass the dictionary to the functoin "metis_error"
+  // If there is an error, pass the dictionary to the function "metis_error"
   // Note: functions can have any name you want; to demonstrate this we put
   //       metis_ at the beginning of each function.
-  $.post({
-    url: '/predict_api',
-    contentType: 'application/json',
-    data: JSON.stringify(feature),
-    success: result => metis_success(result),
-    error: result => metis_error(result)
-  })
+  console.log(feature);
+  // $.post({
+  //   url: '/results',
+  //   contentType: 'application/json',
+  //   data: JSON.stringify(feature),
+  //   success: result => metis_success(result),
+  //   error: result => metis_error(result)
+  // })
 }
 
 function ourRound(val, decimalPlaces=1){
@@ -41,6 +58,7 @@ function ourRound(val, decimalPlaces=1){
  * Here we select the "results" div and overwrite it
  */
 function metis_success(result){
+  alert("inside success");
   $('#results').html(`The most likely class is ${result.most_likely_class_name}
                       with probability ${ourRound(100*result.most_likely_class_prob)}%`);
 
@@ -54,5 +72,5 @@ function metis_success(result){
 
 function metis_error(result){
   console.log(result);
-  alert("lololol");
+  alert("Something's wrong.");
 }

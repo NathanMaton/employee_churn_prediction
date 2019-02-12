@@ -35,15 +35,22 @@ def make_prediction(feature_dict):
       x_inputs: a list of feature values in the order they appear in the model
       probs: a list of dictionaries with keys 'name', 'prob'
     """
+
     x_input = [feature_dict[name] for name in feature_names]
 
-    #pred_probs = rf_model.predict_proba([x_input]).flat
-    outcome = rf_model.predict([x_input])[0]
-    #probs = [{'name': feature_names[index], 'prob': pred_probs[index]}
-    #         for index in np.argsort(pred_probs)[::-1]]
+    #this line below is important in getting the type into the right format
+    x_input = [0 if val == '' else float(val) for val in x_input]
+    #print('python debug says')
+    #print(x_input)
 
-    return (x_input, outcome)
+    prob = str(list(rf_model.predict_proba(np.array(x_input).reshape(1, -1)).flat)[1])
 
+    outcome = str(rf_model.predict([x_input])[0])
+
+
+
+    return prob
+    #return str(rf_model.predict([x_input])[0])
 
 # This section checks that the prediction code runs properly
 # To run, type "python predictor_api.py" in the terminal.
