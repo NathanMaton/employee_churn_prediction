@@ -17,6 +17,11 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, preci
 from imblearn.over_sampling import RandomOverSampler
 
 def clean_churn_df(df):
+    """This simple function turns the input csv file into a training file by
+    removing the target feature "left", and one hot encoding departments + salariesself.
+    It also strips some white space out of the column headersself.
+
+    It returns the df"""
     df.columns = df.columns.str.strip()
     df = pd.concat([df, pd.get_dummies(df['Departments'])], axis=1)
     df = pd.concat([df, pd.get_dummies(df['salary'])], axis=1)
@@ -33,6 +38,9 @@ def score_model_no_cv(model, X_train, y_train, X_val, y_val):
 
 
 def model_baseline_no_cv(X_train, y_train, X_val, y_val):
+    """This takes in training and validation data and runs it through
+    6 basic classification models and scores them based on recall"""
+
     lm2 = LogisticRegression() #all features
     lm2_score = score_model_no_cv(lm2, X_train, y_train, X_val, y_val)
 
@@ -51,12 +59,22 @@ def model_baseline_no_cv(X_train, y_train, X_val, y_val):
     rf = RandomForestClassifier(random_state=41)
     rf_score = score_model_no_cv(rf, X_train, y_train, X_val, y_val)
 
-    #maybe try XGB for fun?
-    #clf = XGBClassifier().fit(X_train, y_train)
-
-    return lm2_score, knn_score, gnb_score, mnb_score, svm_score, rf_score
+    res = {
+        'Logistic regression': lm2_score,
+        'KNN': knn_score,
+        'Gaussian Naive Bayes': gnb_score,
+        'Multinomial Naive Bayes': mnb_score,
+        'Support Vector Classifier': svm_score,
+        'Random Forest': rf_score
+    }
+    return res 
 
 def model_baseline(X_train, y_train):
+    """This takes in training and validation data and runs it through
+    6 basic classification models and scores them based on recall.
+
+    The difference here it is uses CV but doesn't handle the duplicated
+    rows so is only good for a simple baseline."""
     lm2 = LogisticRegression() #all features
     lm2_score = score_model(lm2, X_train, y_train)
 
@@ -81,6 +99,11 @@ def model_baseline(X_train, y_train):
     return lm2_score, knn_score, gnb_score, mnb_score, svm_score, rf_score
 
 def split_with_dupe_rows_in_train(churn_df):
+    """Finds all duplicate rows, splits data and puts duplicates into the training setself.
+
+    This also then calls the clean df function to clean your dataself.
+
+    Returns training, validation and holdout datasets."""
     #find dupes
     churn_df_dupes = churn_df[churn_df.duplicated()==True]
     rest_df = churn_df[churn_df.duplicated()==False]
@@ -107,9 +130,11 @@ def split_with_dupe_rows_in_train(churn_df):
     return X_train, X_val, X_holdout, y_train, y_val, y_holdout
 
 def rf_no_cv_iterx(X_train, y_train, X_val, y_val, iters):
+    """This function just runs the RF X times before I realized you could set the
+    random state"""
     scores = []
     for i in range(iters):
-        rf = RandomForestClassifier(random_state=41)
+        rf = RandomForestClassifier()
         rf_score = score_model_no_cv(rf, X_train, y_train, X_val, y_val)
         scores.append(rf_score)
     return np.array(scores).mean()

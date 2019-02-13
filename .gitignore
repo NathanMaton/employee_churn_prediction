@@ -5,3 +5,4 @@ __pycache__/
 .gitignore
 EEG datasets.ipynb
 taxicab info.ipynb
+sqlid.py
