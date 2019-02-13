@@ -1,7 +1,9 @@
-## Project 3 Proposal
+## Turn - Predict Employee Churn
 
-Losing employees is a very expensive cost for any employer. This project will attempt to classify employees who will leave based on survey data including satisfaction level, last evaluation, number of projects they have, average monthly hours they're working, time they spend at the company, if they got promoted in the last 5 years and a few other data points. The dataset has 15k rows and 10 features.  Thus hopefully employers can work to try and reduce losing employees they don't want to lose.
+Losing employees is a very expensive cost for any employer. This project classifies employees who will leave based on survey data including satisfaction level, last evaluation, number of projects they have, average monthly hours they're working, time they spend at the company, if they got promoted in the last 5 years and a few other data points. The dataset has 15k rows and 10 features.  Thus hopefully employers can work to try and reduce losing employees they don't want to lose.
 
-After building a classifier, I'll store the data in SQL and then visualize the relationships between how they work and why they leave. This should give people some interesting insights into their own roles as well as help any employers predict churn at their company.
+After building a classifier, I stored the data in SQL and then visualize the relationships between how they work and why they leave. I found 6 important feature to predict churn. You can also go online [here](https://employeechurn.herokuapp.com/) and see a live demo where you can check how it'd score for your own data.
 
-My scoring metric will be recall because as an employer losing an employee costs me lots of money. So I'd rather get lots of false positives but not miss anyone vs. only know who will definitely leave.
+If you want more information, please also visit this [presentation](Presentation.pdf).
+
+
