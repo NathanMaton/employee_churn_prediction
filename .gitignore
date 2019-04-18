@@ -1,0 +1,8 @@
+.DS_Store
+.ipynb_checkpoints/
+__pycache__/
+extra files/
+notebooks/.DS_Store
+notebooks/.ipynb_checkpoints/
+notebooks/__pycache__/
+notebooks/sqlid.py
