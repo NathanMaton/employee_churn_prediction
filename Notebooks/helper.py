@@ -67,7 +67,7 @@ def model_baseline_no_cv(X_train, y_train, X_val, y_val):
         'Support Vector Classifier': svm_score,
         'Random Forest': rf_score
     }
-    return res 
+    return res
 
 def model_baseline(X_train, y_train):
     """This takes in training and validation data and runs it through
